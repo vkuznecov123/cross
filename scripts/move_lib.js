@@ -23,7 +23,9 @@ function click(e){
 			var last_td = document.getElementsByClassName('last')[0];
 			if (last_td) last_td.classList.remove('last');
 
-			block=true; // блокировка до конца хода соперника		
+			block=true; // блокировка до конца хода соперника
+				
+			
 		}
 	} else return false; 
 }
@@ -41,6 +43,7 @@ function enemy_move (move){ // в качестве параметра перед
 	var tbody = document.getElementsByTagName('tbody')[0];
 	var td = tbody.children[y-tind].children[x-lind];
 	
+	td.classList.remove (your_side);	
 	td.classList.add (enemy_side); // смена цвета текста клетки. Цвет устанавливается в board.css	
 	td.classList.add ('last'); //	смена цвета фона клетки последнего хода противника. Цвет устанавливается в board.css	
 	td.innerHTML = enemy_side;

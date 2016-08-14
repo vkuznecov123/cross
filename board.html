@@ -8,7 +8,7 @@
 		<script type="text/javascript" src="./scripts/resize_lib.js"></script>
 		<script type="text/javascript" src="./scripts/ajax_lib.js"></script>
 		<script>
-			var num=9; //начальный размер поля. Должен быть нечетным.
+			var num=9; //начальный размер поля. Должен быть нечетным и не меньше 9.
 			var w; //размер ячейки в пикселях. Устанавливается в "board.css".
 			var bord; //размер бордюра клетки. Устанавливается в "board.css".
 
@@ -47,7 +47,7 @@
 				var board = document.getElementById('board');
 				var table = document.getElementsByTagName('table')[0];
 				var ar_td = document.getElementsByTagName('td');
-				
+				var test = "TEST";
 				w=ar_td[0].clientWidth; //размер клетки
 				bord=parseInt(getComputedStyle(ar_td[0]).borderLeftWidth); //ширина рамки клетки
 				bw=(w+bord)*num; // ширина таблицы.
@@ -57,7 +57,8 @@
 					
 				reposition(); //перерасчет позиции поля
 
-				setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс.
+				ajax_start(); //запрос к серверу, начинающий игру и определяющий стороны.
+				//setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс.
 								
 			}
 			
