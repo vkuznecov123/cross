@@ -1,0 +1,36 @@
+html,body,iframe {
+	height:100%;
+	padding:0px;
+	margin:0px;
+	border-width:0px;
+}
+
+.container{
+	min-width:420px;
+	min-height:420px;
+	height:100%;
+	padding:0px;
+	margin:auto;
+	border-width:0px;
+}
+
+iframe {
+	display:block;
+	width:100%;
+	margin:auto;
+			
+}
+
+.container h1 {
+	text-align:center;
+	margin:0px;
+	padding:5px;
+}
+
+header {
+	/*min-height:40px; Зависит от размера заголовка*/
+
+}
+
+
+

@@ -1,0 +1,70 @@
+html,body,#board{
+	height:100%;
+	padding:0px;
+	margin:0px;
+	border-width:0px;
+}
+
+#board table{
+	
+	border-spacing:0px; 
+	position:absolute;
+
+	/*запрет выделения элементов*/
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+
+}
+#board td {
+	text-align:center;
+	padding:0px;
+	margin:0px;
+	
+	/*Следующие свойства могут редактироваться и отличаться для мобильных устройств */
+	
+	/*четыре следующих свойства должны быть равны*/
+	width:40px;
+	height:40px;
+	min-width:40px;
+	min-height:40px;
+
+	border:1px #555 solid;
+	font:bold 40px Arial;
+	line-height:0px; /*обязательно указать после font*/
+}
+
+/*цвет клетки ноликов*/
+#board td.X {
+	color:#D33;
+}
+
+/*цвет клетки ноликов*/
+#board td.O {
+	color:#3A3;
+}
+
+/*клетка с последним ходом противника*/
+#board td.last {
+	background-color:#E0E0FF;
+}
+
+/*клетка с курсором над ней*/
+#board td:hover{
+	background-color:#CCC;
+	cursor:pointer;
+}
+
+@media handheld, only screen and (max-device-width:480px) {
+	#board td {
+		width:120px;
+		height:120px;
+		min-width:120px;
+		min-height:120px;
+		border:1px #555 solid;
+		font:bold 120px Arial;
+		line-height:0px; /*обязательно указать после font*/
+		
+	}
+}

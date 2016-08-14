@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Крестики - Нолики</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+		<link rel="stylesheet" href="main.css"/>
+		<script>
+			window.onload=function(){
+		/*		var cont = document.getElementsByClassName('container')[0];
+				var head = document.getElementsByTagName('header')[0];
+				var art = document.getElementsByTagName('article')[0];
+				var frame = document.getElementById('frame');	
+				
+				cont.style.height = window.innerHeight+'px';
+				cont.style.width = window.innerWidth+'px';
+				art.style.height = window.innerHeight-head.clientHeight +'px';
+				frame.style.height = art.style.height;
+				console.log(art.style.height); console.log(frame.style.height);
+				
+				//	setTimeout(function(){frame.setAttribute('src','board.html')},5000);
+			
+		//		frame.setAttribute('src','board.html');
+		*/
+		
+					}
+		
+
+		</script>
+		</head>
+	<body>
+		<div class="container">	
+			<header>
+				<h1>Крестики - Нолики</h1>
+			
+			</header>
+			<article>
+				<iframe src="board.html" id="frame" frameborder="no"></iframe>
+				<script>
+					var cont = document.getElementsByClassName('container')[0];
+					var head = document.getElementsByTagName('header')[0];
+					var art = document.getElementsByTagName('article')[0];
+					var frame = document.getElementById('frame');	
+					
+				//	cont.style.height = window.innerHeight+'px';
+				//	cont.style.width = window.innerWidth+'px';
+					art.style.height = cont.clientHeight-head.clientHeight +'px';
+					frame.style.height = art.style.height;
+					window.onresize = function() {
+						art.style.height = cont.clientHeight-head.clientHeight+'px';
+						frame.style.width = '100%';
+						frame.style.height = '100%';
+					//	console.log(frame.clientWidth);
+						frame.contentWindow.frame_resize();//Подгон размера iframe под целое нечетное число клеток
+						frame.contentWindow.reposition(); //перерасчет позиции поля
+					}	
+
+				</script>
+			</article>
+		</div>
+	</body>
+</html>
