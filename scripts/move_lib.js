@@ -11,14 +11,16 @@ function click(e){
 	
 			var x = td.getAttribute('data-x'); // координаты клетки
 			var y = td.getAttribute('data-y');
-			last_move=x+':'+y; //запоминание хода	
-		
+			
+			if (last_move=='0:0') ajax_post(x,y); // при начале игры - сразу отправка данных на сервер			
+			else ajax_check_post(x,y); // если игра уже шла - перед отправкой проверяет, не было ли сброса игры.			
+			
+			last_move=x+':'+y; //запоминание хода
 			// по краям всегда должны быть минимум 4 свободные клетки
 			add_fields(x,y); // добавление необходимых клеток.
 			
 			reposition(); // перепозиционирование поля и скроллбаров
-			ajax_post(x,y); // отправка данных на сервер
-
+			
 			// отмена выделения клетки последнего хода противника
 			var last_td = document.getElementsByClassName('last')[0];
 			if (last_td) last_td.classList.remove('last');

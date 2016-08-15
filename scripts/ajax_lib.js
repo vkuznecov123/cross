@@ -26,11 +26,30 @@ function ajax_post(x,y) {
 	req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	var str="x="+x+"&y="+y;
 //	req.onreadystatechange = function(){
-//		if(req.readyState!=4) return;
-//		console.log('ajax resp'+req.responseText);
+//		if(req.readyState==4 && req.status==200) {
+//			}	
 //	};
 
 	req.send(str);
+}
+
+/*
+**Проверка, не сбросил ли соперник игру.
+**Если нет - отправка данных о сделанном ходе на сервер.
+**В противном случае - перезагрузка страницы.
+*/
+function ajax_check_post(x,y) {
+	var req=getXMLHttpRequest();
+	var req_move; //полученный с сервера ход	
+	req.open("HEAD","/php_scripts/read.php",true);
+	req.onreadystatechange = function(){
+		if(req.readyState==4 && req.status==200 && req.getResponseHeader("MOVE")!='') {	
+			req_move=req.getResponseHeader("MOVE");
+			if (req_move=='0:0') window.top.location.reload(); // Если был сброс игры - перезагрузка страницы
+			else ajax_post(x,y); // В противном случае - отправляем данные о своем ходе на сервер.
+		}
+	}
+	req.send();
 }
 
 /*
@@ -45,8 +64,11 @@ function ajax_head() {
 			if(req.readyState==4 && req.status==200 && req.getResponseHeader("MOVE")!='') {
 				req_move=req.getResponseHeader("MOVE");
 				if(req_move!=last_move) {
-					last_move=req_move;				
-					enemy_move(req_move);
+					if (req_move=='0:0') window.top.location.reload();					
+					else {
+						last_move=req_move;				
+						enemy_move(req_move);
+					}
 				}
 			}
 		}
@@ -66,6 +88,7 @@ function ajax_start() {
 	req.onreadystatechange = function(){
 		if(req.readyState==4 && req.status==200 && req.getResponseHeader("MOVE")!='') {
 			req_move=req.getResponseHeader("MOVE");
+			console.log(req_move);			
 			if(req_move=='0:0') {
 				your_side = 'O'; // смена стороны на нолики
 				enemy_side = 'X';
