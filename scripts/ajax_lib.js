@@ -25,10 +25,11 @@ function ajax_post(x,y) {
 	req.open("POST","/php_scripts/write.php",true);
 	req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	var str="x="+x+"&y="+y;
-//	req.onreadystatechange = function(){
-//		if(req.readyState==4 && req.status==200) {
-//			}	
-//	};
+	req.onreadystatechange = function(){
+		if(req.readyState==4 && req.status==200) {
+			block=true; // блокировка до конца хода соперника и запуск обработки запросов к серверу.			
+		}	
+	};
 
 	req.send(str);
 }
@@ -98,14 +99,15 @@ function ajax_start() {
 					ar_td[i].classList.add (your_side); 
 				}
 				enemy_move('0:0'); //первый ход соперника
-				setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс. 
+				timer = setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс. 
 			}
 			else {
 				var td = table.firstChild.children[num>>1].children[num>>1]; //ищем клетку(0,0) и ставим туда крестик
 				td.innerHTML = your_side;
+				ar_add (0,0,your_side)//запись хода в массив
 				ajax_post(0,0); // отправка данных на сервер
 				block=true; // блокировка до конца хода соперника
-				setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс. 
+				timer = setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс. 
 			}
 		}
 	}

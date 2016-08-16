@@ -5,10 +5,10 @@
 
 	$x = $_POST['x'];
 	$y = $_POST['y'];
-
+	
 	$str = $x.':'.$y;
 	$file = fopen("../games/game.txt","w");
 	fputs ($file,$str);
 	fclose($file);
-
+	echo $x.':'.$y;
 ?>

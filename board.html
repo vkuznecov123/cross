@@ -36,30 +36,33 @@
 			var ffb_scroll=false;
 
 			var fr=window.top.document.getElementById('frame'); //сам фрейм, содержащий окно с полем
-
+			var timer; // переменная для управления таймером отправки запросов к серверу
+			
 			var last_move = '0:0'; //строка, содержащая координаты последнего хода
 			var your_side = 'X'; // за какую сторону играет пользователь
 			var enemy_side = 'O'; // за какую сторону играет оппонент
-			var block = false; // блокировка на время хода противника	
+			var block = false; // блокировка на время хода противника, включение обработки ответов сервера	
 			var start = false; // если true - игра начата
-			
+			var M=[]; //двумерный разреженный массив, содержащий информацию о позиции. Нолики - 'O', крестики - 'X'.
+					  //Индексы массива могут быть отрицательными и соответствуют координатом клеток. Пустые клетки
+					  //не определены в массиве.	 			
+
 			window.onload = function(){
-				var board = document.getElementById('board');
-				var table = document.getElementsByTagName('table')[0];
+				//var board = document.getElementById('board');
+				//var table = document.getElementsByTagName('table')[0];
 				var ar_td = document.getElementsByTagName('td');
 				var test = "TEST";
 				w=ar_td[0].clientWidth; //размер клетки
 				bord=parseInt(getComputedStyle(ar_td[0]).borderLeftWidth); //ширина рамки клетки
 				bw=(w+bord)*num; // ширина таблицы.
 				bh=(w+bord)*num; // высота таблицы.
-															
+																			
 				frame_resize();	//Подгон размера iframe под целое нечетное число клеток
 					
 				reposition(); //перерасчет позиции поля
 
 				ajax_start(); //запрос к серверу, начинающий игру и определяющий стороны.
-				//setInterval(ajax_head,1000); // проверка изменений на сервере каждые 1000 мс.
-								
+												
 			}
 			
 

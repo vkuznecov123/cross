@@ -56,6 +56,11 @@ html,body,#board{
 	cursor:pointer;
 }
 
+/*клетка с победной комбинацией*/
+#board td.win {
+	background-color:#FFBBBB;
+}
+
 @media handheld, only screen and (max-device-width:480px) {
 	#board td {
 		width:120px;
