@@ -4,73 +4,23 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="board.css"/>
 		
-		<script type="text/javascript" src="./scripts/move_lib.js"></script>
-		<script type="text/javascript" src="./scripts/resize_lib.js"></script>
-		<script type="text/javascript" src="./scripts/ajax_lib.js"></script>
+		<script type="text/javascript" src="./scripts/std_lib.js"></script>
+		<script type="text/javascript" src="./scripts/interfaces.js"></script>
+		<script type="text/javascript" src="./scripts/classes/Board.js"></script>
+		<script type="text/javascript" src="./scripts/classes/Game.js"></script>
+		<script type="text/javascript" src="./scripts/classes/Engines/Dummy.js"></script>
 		<script>
-			var num=9; //начальный размер поля. Должен быть нечетным и не меньше 9.
-			var w; //размер ячейки в пикселях. Устанавливается в "board.css".
-			var bord; //размер бордюра клетки. Устанавливается в "board.css".
-
-			//При изменении вышеуказанных параметров - не забыть поменять минимальные
-			//размеры контейнера в CSS
-			
-			var wn=num,hn=num;//количество клеток по ширине и высоте
-			
-			var bw; // ширина таблицы.
-			var bh; // высота таблицы.
-			
-			var num_w; //количество мест под клетки по ширине 
-			var num_h; //количество мест под клетки по высоте
-			
-			//клетки и их координаты считаются слева направо и СВЕРХУ ВНИЗ.	
-			var rind = num>>1; //текущий индекс крайнего правого столбца
-			var lind = -rind; //текущий индекс крайнего левого столбца
-			var bind = num>>1; //текущий индекс нижнего ряда
-			var tind = -bind; //текущий индекс верхнего ряда
-
-			var scroll_w=0; //на сколько клеток нужно прокрутить страницу вправо
-			var scroll_h=0; //на сколько клеток нужно прокрутить страницу вниз
-			
-			var ffb=true; //нужны для исправления бага firefox со сдвигом скроллбара
-			var ffb_scroll=false;
-
-			var fr=window.top.document.getElementById('frame'); //сам фрейм, содержащий окно с полем
-			var timer; // переменная для управления таймером отправки запросов к серверу
-			
-			var last_move = '0:0'; //строка, содержащая координаты последнего хода
-			var your_side = 'X'; // за какую сторону играет пользователь
-			var enemy_side = 'O'; // за какую сторону играет оппонент
-			var block = false; // блокировка на время хода противника, включение обработки ответов сервера	
-			var start = false; // если true - игра начата
-			var M=[]; //двумерный разреженный массив, содержащий информацию о позиции. Нолики - 'O', крестики - 'X'.
-					  //Индексы массива могут быть отрицательными и соответствуют координатом клеток. Пустые клетки
-					  //не определены в массиве.	 			
-
+		
 			window.onload = function(){
-				//var board = document.getElementById('board');
-				//var table = document.getElementsByTagName('table')[0];
-				var ar_td = document.getElementsByTagName('td');
-				var test = "TEST";
-				w=ar_td[0].clientWidth; //размер клетки
-				bord=parseInt(getComputedStyle(ar_td[0]).borderLeftWidth); //ширина рамки клетки
-				bw=(w+bord)*num; // ширина таблицы.
-				bh=(w+bord)*num; // высота таблицы.
-																			
-				frame_resize();	//Подгон размера iframe под целое нечетное число клеток
-					
-				reposition(); //перерасчет позиции поля
-
-				ajax_start(); //запрос к серверу, начинающий игру и определяющий стороны.
-												
+				var enemy = new Dummy();
+				game = new Game(enemy,'X');
 			}
 			
 
 		</script>
 	</head>
 	<body>
-		<div id="board">
-			<script type="text/javascript" src="./scripts/start_table.js"></script> 
+		<div id="board">	
 		</div>
 	</body>
 </html>
